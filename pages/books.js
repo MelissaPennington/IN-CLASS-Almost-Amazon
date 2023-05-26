@@ -1,10 +1,10 @@
 import clearDom from '../utils/clearDom';
 import renderToDOM from '../utils/renderToDom';
 
-const emptyBooks = () => {
+function emptyBooks() {
   const domString = '<h1>No Books</h1>';
   renderToDOM('#store', domString);
-};
+}
 
 const showBooks = (array) => {
   clearDom();
