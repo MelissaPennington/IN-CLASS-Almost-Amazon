@@ -15,6 +15,11 @@ const showAuthors = (array) => {
 
   let domString = '';
   array.forEach((item) => {
+    const favorited = () => {
+      if (item.favorite === true) {
+        return 'unfavorite';
+      } return 'favorite';
+    };
     domString += `
     <div class="card" style="width: 18rem;">
       <div class="card-body">
@@ -23,6 +28,7 @@ const showAuthors = (array) => {
         <hr>
         <i class="btn btn-success fas fa-eye" id="view-author-btn--${item.firebaseKey}"></i>
         <i class="fas fa-edit btn btn-info" id="update-author--${item.firebaseKey}"></i>
+        <button class="favorite-${item.favorite}" id="favorite-author-btn--${item.firebaseKey}">${favorited()}</button>
         <i class="btn btn-danger fas fa-trash-alt" id="delete-author-btn--${item.firebaseKey}"></i>
       </div>
     </div>

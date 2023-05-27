@@ -1,7 +1,7 @@
 import { signOut } from '../utils/auth';
 import { getBooks, booksOnSale } from '../api/bookData';
 import { showBooks } from '../pages/books';
-import { favoriteAuthor, getAuthors } from '../api/authorData';
+import { favoriteAuthors, getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 
 // navigation events
@@ -29,7 +29,7 @@ const navigationEvents = () => {
   });
 
   document.querySelector('#favorite-authors').addEventListener('click', () => {
-    favoriteAuthor().then(showAuthors);
+    favoriteAuthors().then(showAuthors);
   });
 
   // STRETCH: SEARCH
