@@ -1,4 +1,5 @@
-import { deleteSingleAuthor, getAuthors } from '../api/authorData';
+// eslint-disable-next-line object-curly-newline
+import { deleteSingleAuthor, favoriteAuthor, getSingleAuthor, getAuthors } from '../api/authorData';
 import { deleteBook, getBooks } from '../api/bookData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
@@ -44,7 +45,21 @@ const domEvents = () => {
         });
       }
     }
-
+    if (e.target.id.includes('favorite-author-btn')) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Want to favorite?')) {
+        console.warn('CLICKED CONFIRM FAVORITE', e.target.id);
+        const [, firebaseKey] = e.target.id.split('--');
+        getSingleAuthor(firebaseKey).then((author) => {
+          if (author.favorite === true) {
+            // eslint-disable-next-line no-param-reassign
+            author.favorite = false;
+          }
+          // eslint-disable-next-line no-param-reassign
+          author.favorite = true;
+        }).then((author) => favoriteAuthor(author));
+      }
+    }
     // FIXME: ADD CLICK EVENT FOR SHOWING FORM FOR ADDING AN AUTHOR
     if (e.target.id.includes('add-author-btn')) {
       console.warn('ADD AUTHOR');
