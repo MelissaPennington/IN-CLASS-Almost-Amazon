@@ -1,4 +1,6 @@
+import { deleteSingleAuthor, getAuthors } from '../api/authorData';
 import { deleteBook, getBooks } from '../api/bookData';
+import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
 
 const domEvents = () => {
@@ -35,8 +37,11 @@ const domEvents = () => {
     if (e.target.id.includes('delete-author-btn')) {
       // eslint-disable-next-line no-alert
       if (window.confirm('Want to delete?')) {
-        console.warn('DELETE AUTHOR', e.target.id);
-        console.warn(e.target.id.split('--'));
+        console.warn('CLICKED DELETE AUTHOR', e.target.id);
+        const [, firebaseKey] = e.target.id.split('--');
+        deleteSingleAuthor(firebaseKey).then(() => {
+          getAuthors().then(showAuthors);
+        });
       }
     }
 
@@ -45,6 +50,16 @@ const domEvents = () => {
       console.warn('ADD AUTHOR');
     }
     // FIXME: ADD CLICK EVENT FOR EDITING AN AUTHOR
+    if (e.target.id.includes('delete-book')) {
+      // eslint-disable-next-line no-alert
+      if (window.confirm('Want to delete?')) {
+        console.warn('CLICKED DELETE BOOK', e.target.id);
+        const [, firebaseKey] = e.target.id.split('--');
+        deleteBook(firebaseKey).then(() => {
+          getBooks().then(showBooks);
+        });
+      }
+    }
   });
 };
 
