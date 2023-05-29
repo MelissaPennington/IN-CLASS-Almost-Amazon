@@ -1,8 +1,9 @@
 // eslint-disable-next-line object-curly-newline
 import { deleteSingleAuthor, favoriteAuthor, getSingleAuthor, getAuthors } from '../api/authorData';
-import { deleteBook, getBooks } from '../api/bookData';
+import { deleteBook, getBooks, getSingleBook } from '../api/bookData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import addBookForm from '../components/forms/addBookForm';
 
 const domEvents = () => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -20,13 +21,14 @@ const domEvents = () => {
 
     // TODO: CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes('add-book-btn')) {
-      console.warn('ADD BOOK');
+      addBookForm();
     }
 
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
     if (e.target.id.includes('edit-book-btn')) {
-      console.warn('EDIT BOOK', e.target.id);
-      console.warn(e.target.id.split('--'));
+      const [, firebaseKey] = e.target.id.split('--');
+
+      getSingleBook(firebaseKey).then((bookObj) => addBookForm(bookObj));
     }
     // TODO: CLICK EVENT FOR VIEW BOOK DETAILS
     if (e.target.id.includes('view-book-btn')) {
